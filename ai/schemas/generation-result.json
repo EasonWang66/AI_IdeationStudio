@@ -1,0 +1,30 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "imageUrl": { "type": "string" },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "palette": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string" },
+          "reason": { "type": "string" }
+        },
+        "required": ["name", "reason"]
+      }
+    },
+    "rationale": { "type": "string" },
+    "revisedPrompt": { "type": "string" }
+  },
+  "required": ["imageUrl", "tags", "palette", "references", "rationale", "revisedPrompt"]
+}
