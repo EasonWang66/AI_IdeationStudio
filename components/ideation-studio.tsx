@@ -219,7 +219,7 @@ export function IdeationStudio() {
           />
           <div className="studio-nav-head">
             <div className="studio-logo">
-              <img className="studio-logo-mark" src="/brand/studio-mark-simple.svg" alt="" />
+              <img className="studio-logo-mark" src="/brand/studio-logo-transparent.png" alt="" />
               <div>
                 <strong>Visual Ideation Studio</strong>
               </div>
