@@ -12,7 +12,7 @@ The repository folder is named `Adobe_Firefly_IdeationStudio` for portfolio posi
 
 ## Link to Live Demo
 
-Vercel deployment pending.
+[https://ai-ideation-studio.vercel.app](https://ai-ideation-studio.vercel.app)
 
 ## Tools and Technologies Used
 

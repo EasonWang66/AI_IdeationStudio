@@ -74,7 +74,7 @@
 
 html,
 body {
-  min-height: 100%;
+  min-height: 800px;
   min-width: 1200px;
 }
 
@@ -102,7 +102,9 @@ textarea {
 
 .studio-shell {
   position: relative;
-  min-height: 100vh;
+  width: max(100vw, 1200px);
+  height: max(100vh, 800px);
+  min-height: 800px;
   min-width: 1200px;
   display: grid;
   grid-template-columns: 360px minmax(0, 1fr);
@@ -144,7 +146,7 @@ textarea {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  min-height: 100vh;
+  min-height: 800px;
   overflow: hidden;
   z-index: 1;
   transition: background 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
@@ -249,7 +251,7 @@ textarea {
 .studio-workspace {
   position: relative;
   min-width: 840px;
-  min-height: 100vh;
+  min-height: 800px;
   overflow: auto;
   background:
     radial-gradient(520px 360px at 28% 112%, var(--studio-glow-blue), transparent 72%),
