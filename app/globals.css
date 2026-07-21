@@ -74,8 +74,11 @@
 
 html,
 body {
+  width: 1200px;
+  height: 800px;
   min-height: 800px;
   min-width: 1200px;
+  overflow: auto;
 }
 
 body {
@@ -102,8 +105,8 @@ textarea {
 
 .studio-shell {
   position: relative;
-  width: max(100vw, 1200px);
-  height: max(100vh, 800px);
+  width: 1200px;
+  height: 800px;
   min-height: 800px;
   min-width: 1200px;
   display: grid;
@@ -142,10 +145,10 @@ textarea {
     inset -1px 0 0 rgba(232, 215, 255, 0.08),
     inset 1px 0 0 rgba(255, 244, 255, 0.13),
     16px 0 46px rgba(0, 0, 0, 0.24);
-  padding: 24px 20px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
   min-height: 800px;
   overflow: hidden;
   z-index: 1;
@@ -210,7 +213,7 @@ textarea {
 }
 
 .studio-nav-head {
-  gap: 18px;
+  gap: 16px;
 }
 
 .studio-logo {
@@ -251,6 +254,8 @@ textarea {
 .studio-workspace {
   position: relative;
   min-width: 840px;
+  width: 840px;
+  height: 800px;
   min-height: 800px;
   overflow: auto;
   background:
@@ -448,7 +453,7 @@ textarea {
 
 .studio-history-section {
   display: grid;
-  gap: 12px;
+  gap: 10px;
 }
 
 .studio-history-head {
@@ -573,7 +578,7 @@ textarea {
 }
 
 .studio-upload {
-  min-height: 184px;
+  min-height: 136px;
   border: 1px dashed rgba(245, 232, 255, 0.52);
   border-radius: var(--studio-radius);
   background:
@@ -586,7 +591,7 @@ textarea {
     inset 0 -1px 0 rgba(0, 0, 0, 0.12);
   display: grid;
   place-items: center;
-  padding: 20px;
+  padding: 16px;
   text-align: center;
 }
 
@@ -614,7 +619,7 @@ textarea {
 
 .studio-form {
   display: grid;
-  gap: 14px;
+  gap: 10px;
 }
 
 .studio-outcome-panel > .studio-form {
@@ -625,7 +630,7 @@ textarea {
 
 .studio-textarea {
   width: 100%;
-  min-height: 132px;
+  min-height: 92px;
   resize: vertical;
   border: 1px solid rgba(245, 232, 255, 0.25);
   border-radius: var(--studio-radius);

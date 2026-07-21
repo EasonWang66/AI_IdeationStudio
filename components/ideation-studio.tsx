@@ -12,22 +12,22 @@ import type { GenerationResult, TimelineEntry } from "@/lib/types";
 const STORAGE_KEY = "visual-ideation-studio.timeline";
 const THUMBNAILS_PER_PAGE = 9;
 const PANEL_POSITIONS = {
-  outcome: { x: 24, y: 24 },
-  timeline: { x: 690, y: 24 },
-  styles: { x: 690, y: 288 },
-  references: { x: 690, y: 500 }
+  outcome: { x: 20, y: 20 },
+  timeline: { x: 544, y: 20 },
+  styles: { x: 544, y: 228 },
+  references: { x: 544, y: 404 }
 };
 const PANEL_SIZES = {
-  outcome: { width: 640, height: 498 },
-  timeline: { width: 320, height: 240 },
-  styles: { width: 320, height: 188 },
-  references: { width: 320, height: 240 }
+  outcome: { width: 500, height: 436 },
+  timeline: { width: 276, height: 184 },
+  styles: { width: 276, height: 152 },
+  references: { width: 276, height: 236 }
 };
 const PANEL_MIN_SIZES = {
-  outcome: { width: 520, height: 360 },
-  timeline: { width: 280, height: 180 },
-  styles: { width: 280, height: 150 },
-  references: { width: 280, height: 180 }
+  outcome: { width: 440, height: 320 },
+  timeline: { width: 240, height: 150 },
+  styles: { width: 240, height: 130 },
+  references: { width: 240, height: 160 }
 };
 type PanelId = keyof typeof PANEL_POSITIONS;
 

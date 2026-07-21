@@ -6,7 +6,7 @@ This project showcases a prototype for an AI-powered visual ideation product cal
 
 This build focuses on a polished end-to-end prototype flow rather than a full production asset-management platform. It supports base image upload, prompt-driven generation through the OpenAI API, one primary generated outcome, visual genre tags, palette notes, direction rationale, artist and research references, and a local iteration timeline so users can revisit earlier explorations.
 
-The prototype is designed around Adobe Spectrum visual patterns where possible, including React Spectrum controls, Sarpanch typography selected for the product identity, compact tool panels, glass-style dark surfaces, draggable and resizable workspace panels, thumbnail history pagination, accessible button states, and restrained animated background motion. The primary target is a fixed desktop demonstration canvas with a minimum width of 1200px for use in portfolio, GitHub, and Vercel presentation contexts.
+The prototype is designed around Adobe Spectrum visual patterns where possible, including React Spectrum controls, Sarpanch typography selected for the product identity, compact tool panels, glass-style dark surfaces, draggable and resizable workspace panels, thumbnail history pagination, accessible button states, and restrained animated background motion. The primary target is a fixed 1200px by 800px desktop demonstration canvas for use in portfolio, GitHub, and Vercel presentation contexts.
 
 The repository folder is named `Adobe_Firefly_IdeationStudio` for portfolio positioning, while the product interface uses the name Visual Ideation Studio to avoid implying Adobe sponsorship or an official Adobe Firefly integration.
 
@@ -68,11 +68,11 @@ The AI output is driven by the API route in `app/api/generate/route.ts`, with sh
 
 Built desktop-first for a fixed presentation canvas:
 
-Base (1200px minimum) — fixed-width ideation workspace with a docked control panel and open draggable workspace.
+Base (1200px by 800px) — fixed-ratio ideation workspace with a docked control panel and open draggable workspace.
 
 Large desktop — the canvas remains stable so the prototype can be presented consistently in portfolio, GitHub, and Vercel contexts.
 
-Narrower browser windows — horizontal overflow is allowed so the 1200px prototype layout does not collapse or distort.
+Narrower browser windows — overflow is allowed so the 1200px by 800px prototype layout does not collapse or distort.
 
 The interface can be adapted into a responsive experience later, but this prototype intentionally prioritizes visual accuracy, desktop workspace customization, and controlled presentation fidelity.
 
