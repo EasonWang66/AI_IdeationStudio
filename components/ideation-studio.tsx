@@ -139,6 +139,7 @@ export function IdeationStudio() {
       setBaseImage(imageDataUrl);
       setSelectedSeedId(seed.id);
       setDemoPromptIndex(0);
+      setPrompt(seed.demoPrompts[0]);
       setIsPickerOpen(false);
     } catch {
       setError("The selected base image could not be loaded.");
@@ -369,26 +370,19 @@ export function IdeationStudio() {
               <label>
                 <Text>Prompt</Text>
                 {selectedSeed ? (
-                  <div className="studio-demo-prompt-shell" aria-label={`${selectedSeed.title} demo prompts`}>
-                    <button
-                      className="studio-demo-prompt"
-                      type="button"
-                      aria-pressed={prompt === activeDemoPrompt}
-                      aria-label="Switch demo prompt"
-                      onClick={flipDemoPrompt}
-                    >
-                      <span>{activeDemoPrompt.replace(`Demo prompt ${demoPromptIndex + 1}: `, "")}</span>
-                    </button>
-                  </div>
+                  <button
+                    className="studio-textarea studio-prompt-switch"
+                    type="button"
+                    aria-label={`Switch to demo prompt ${demoPromptIndex === 0 ? "2" : "1"}`}
+                    onClick={flipDemoPrompt}
+                  >
+                    {activeDemoPrompt}
+                  </button>
                 ) : (
-                  <p className="studio-prompt-hint">Select a base image to reveal two demo prompts.</p>
+                  <button className="studio-textarea studio-prompt-switch" type="button" disabled>
+                    Select a base image to reveal demo prompts.
+                  </button>
                 )}
-                <textarea
-                  className="studio-textarea"
-                  value={prompt}
-                  onChange={(event) => setPrompt(event.target.value)}
-                  placeholder="Input a text prompt to describe the mood, style, material, genre, or visual direction."
-                />
               </label>
 
               <div className="studio-actions studio-actions-stack">

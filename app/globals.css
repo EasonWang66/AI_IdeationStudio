@@ -692,56 +692,29 @@ textarea {
     inset 0 0 18px rgba(212, 179, 255, 0.025);
 }
 
+.studio-prompt-switch {
+  display: block;
+  cursor: pointer;
+  text-align: left;
+  line-height: 1.45;
+}
+
+.studio-prompt-switch:hover:not(:disabled),
+.studio-prompt-switch:focus-visible:not(:disabled) {
+  border-color: rgba(245, 232, 255, 0.42);
+  background:
+    linear-gradient(145deg, rgba(255, 245, 255, 0.17), rgba(188, 143, 255, 0.07)),
+    rgba(85, 64, 112, 0.34);
+}
+
+.studio-prompt-switch:disabled {
+  color: var(--studio-muted);
+  cursor: default;
+}
+
 .studio-textarea::placeholder {
   color: var(--studio-muted);
   opacity: 1;
-}
-
-.studio-demo-prompt-shell {
-  display: grid;
-  gap: 6px;
-  margin: 6px 0 8px;
-}
-
-.studio-demo-prompt {
-  border: 1px solid rgba(232, 215, 255, 0.18);
-  border-radius: var(--studio-radius);
-  padding: 10px 12px;
-  color: var(--studio-muted);
-  text-align: left;
-  background:
-    linear-gradient(145deg, rgba(255, 242, 255, 0.12), rgba(177, 132, 255, 0.035)),
-    rgba(72, 56, 92, 0.22);
-  cursor: pointer;
-  transition: color 160ms ease, border-color 160ms ease, background 160ms ease, transform 160ms ease;
-}
-
-.studio-demo-prompt span {
-  display: block;
-  font-size: 11px;
-  line-height: 1.35;
-}
-
-.studio-demo-prompt:hover,
-.studio-demo-prompt:focus-visible,
-.studio-demo-prompt[aria-pressed="true"] {
-  color: var(--studio-text);
-  border-color: rgba(245, 232, 255, 0.38);
-  background:
-    linear-gradient(145deg, rgba(255, 245, 255, 0.2), rgba(188, 143, 255, 0.08)),
-    rgba(85, 64, 112, 0.36);
-}
-
-.studio-demo-prompt:hover,
-.studio-demo-prompt:focus-visible {
-  transform: translateY(-1px);
-}
-
-.studio-prompt-hint {
-  margin: 6px 0 8px;
-  color: var(--studio-muted);
-  font-size: 11px;
-  line-height: 1.4;
 }
 
 .studio-glass-button {
