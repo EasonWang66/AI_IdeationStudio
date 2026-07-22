@@ -6,7 +6,7 @@ import ChevronLeft from "@spectrum-icons/workflow/ChevronLeft";
 import ChevronRight from "@spectrum-icons/workflow/ChevronRight";
 import Download from "@spectrum-icons/workflow/Download";
 import ImageAdd from "@spectrum-icons/workflow/ImageAdd";
-import { ChangeEvent, PointerEvent, useEffect, useMemo, useState } from "react";
+import { PointerEvent, useEffect, useMemo, useState } from "react";
 import type { GenerationResult, TimelineEntry } from "@/lib/types";
 
 const STORAGE_KEY = "visual-ideation-studio.timeline";
@@ -33,8 +33,48 @@ type PanelId = keyof typeof PANEL_POSITIONS;
 
 const starterPrompt = "";
 
+const baseImagePresets = [
+  {
+    id: "glass-object",
+    title: "Glass Object",
+    description: "Reflective product form with cool studio lighting.",
+    palette: ["#116dff", "#7f5bff", "#f6f0ff"],
+    image: buildSeedImage("Glass Object", "#116dff", "#7f5bff", "#f6f0ff")
+  },
+  {
+    id: "fabric-study",
+    title: "Fabric Study",
+    description: "Soft textile folds with warm highlight contrast.",
+    palette: ["#ff63e7", "#c874ff", "#f5d9ff"],
+    image: buildSeedImage("Fabric Study", "#ff63e7", "#8f5cff", "#f5d9ff")
+  },
+  {
+    id: "industrial-shell",
+    title: "Industrial Shell",
+    description: "Machined surface, graphite shadow, precise rim light.",
+    palette: ["#3bd7ff", "#5367ff", "#d7e8ff"],
+    image: buildSeedImage("Industrial Shell", "#3bd7ff", "#5367ff", "#d7e8ff")
+  },
+  {
+    id: "organic-vessel",
+    title: "Organic Vessel",
+    description: "Sculptural shape with botanical, luminous material cues.",
+    palette: ["#51e6b5", "#4b9cf5", "#d8fff2"],
+    image: buildSeedImage("Organic Vessel", "#51e6b5", "#4b9cf5", "#d8fff2")
+  }
+];
+
+const promptPresets = [
+  "Create an editorial product concept image with refined lighting, cinematic color contrast, and a polished art-direction moodboard quality.",
+  "Explore a cyberpunk visual direction with luminous material surfaces, atmospheric depth, and a premium design-fiction feeling.",
+  "Generate a soft impressionist reference with painterly light, gentle motion, muted color transitions, and tactile atmosphere.",
+  "Create a minimal luxury object study with dramatic negative space, glass-like reflections, and gallery-grade composition."
+];
+
 export function IdeationStudio() {
   const [baseImage, setBaseImage] = useState<string>("");
+  const [selectedSeedId, setSelectedSeedId] = useState("");
+  const [isPickerOpen, setIsPickerOpen] = useState(false);
   const [prompt, setPrompt] = useState(starterPrompt);
   const [timeline, setTimeline] = useState<TimelineEntry[]>([]);
   const [activeId, setActiveId] = useState<string>("");
@@ -78,16 +118,12 @@ export function IdeationStudio() {
     galleryPage * THUMBNAILS_PER_PAGE + THUMBNAILS_PER_PAGE
   );
   const thumbnailSlots = Array.from({ length: THUMBNAILS_PER_PAGE }, (_, index) => galleryEntries[index]);
+  const selectedSeed = baseImagePresets.find((seed) => seed.id === selectedSeedId);
 
-  async function handleImageChange(event: ChangeEvent<HTMLInputElement>) {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      setBaseImage(String(reader.result));
-    };
-    reader.readAsDataURL(file);
+  function selectBaseImage(seed: (typeof baseImagePresets)[number]) {
+    setBaseImage(seed.image);
+    setSelectedSeedId(seed.id);
+    setIsPickerOpen(false);
   }
 
   async function generate() {
@@ -131,6 +167,8 @@ export function IdeationStudio() {
 
   function startNewProject() {
     setBaseImage("");
+    setSelectedSeedId("");
+    setIsPickerOpen(false);
     setPrompt(starterPrompt);
     setTimeline([]);
     setActiveId("");
@@ -282,21 +320,39 @@ export function IdeationStudio() {
 
           <section className="studio-nav-section studio-input-section">
             <div className="studio-form">
-              <label className="studio-upload">
+              <button className="studio-upload" type="button" onClick={() => setIsPickerOpen(true)}>
                 {baseImage ? (
-                  <img className="studio-preview" src={baseImage} alt="Selected base reference" />
+                  <span className="studio-selected-seed">
+                    <img className="studio-preview" src={baseImage} alt="" />
+                    <span>
+                      <strong>{selectedSeed?.title ?? "Selected base image"}</strong>
+                      <small>{selectedSeed?.description ?? "Click to choose another visual seed."}</small>
+                    </span>
+                  </span>
                 ) : (
                   <Flex direction="column" gap="size-100" alignItems="center">
                     <ImageAdd size="L" />
                     <Text>Select a base image</Text>
-                    <Text UNSAFE_className="studio-small">PNG, JPG, or WebP</Text>
+                    <Text UNSAFE_className="studio-small">Choose one of 4 visual seeds</Text>
                   </Flex>
                 )}
-                <input hidden type="file" accept="image/png,image/jpeg,image/webp" onChange={handleImageChange} />
-              </label>
+              </button>
 
               <label>
                 <Text>Prompt</Text>
+                <div className="studio-preset-grid" aria-label="Prompt presets">
+                  {promptPresets.map((preset, index) => (
+                    <button
+                      className="studio-preset-button"
+                      type="button"
+                      aria-pressed={prompt === preset}
+                      key={preset}
+                      onClick={() => setPrompt(preset)}
+                    >
+                      Prompt {index + 1}
+                    </button>
+                  ))}
+                </div>
                 <textarea
                   className="studio-textarea"
                   value={prompt}
@@ -522,6 +578,49 @@ export function IdeationStudio() {
             </section>
           </div>
         </main>
+
+        {isPickerOpen ? (
+          <div className="studio-modal-backdrop" role="presentation" onClick={() => setIsPickerOpen(false)}>
+            <section
+              className="studio-modal"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="base-image-picker-title"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <div className="studio-panel-title">
+                <Heading id="base-image-picker-title" level={2}>
+                  Select Base Image
+                </Heading>
+                <button className="studio-icon-button" type="button" aria-label="Close base image picker" onClick={() => setIsPickerOpen(false)}>
+                  x
+                </button>
+              </div>
+              <div className="studio-seed-grid">
+                {baseImagePresets.map((seed) => (
+                  <button
+                    className="studio-seed-card"
+                    type="button"
+                    aria-pressed={selectedSeedId === seed.id}
+                    key={seed.id}
+                    onClick={() => selectBaseImage(seed)}
+                  >
+                    <img src={seed.image} alt="" />
+                    <span>
+                      <strong>{seed.title}</strong>
+                      <small>{seed.description}</small>
+                    </span>
+                    <span className="studio-seed-swatches" aria-hidden="true">
+                      {seed.palette.map((color) => (
+                        <i key={color} style={{ backgroundColor: color }} />
+                      ))}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </section>
+          </div>
+        ) : null}
       </div>
     </Provider>
   );
@@ -545,4 +644,30 @@ function formatDate(value: string) {
     hour: "numeric",
     minute: "2-digit"
   }).format(new Date(value));
+}
+
+function buildSeedImage(label: string, colorA: string, colorB: string, colorC: string) {
+  const svg = `
+    <svg width="640" height="480" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="a" cx="34%" cy="26%" r="74%">
+          <stop offset="0%" stop-color="${colorC}"/>
+          <stop offset="44%" stop-color="${colorA}"/>
+          <stop offset="100%" stop-color="#15101d"/>
+        </radialGradient>
+        <radialGradient id="b" cx="72%" cy="72%" r="62%">
+          <stop offset="0%" stop-color="${colorB}" stop-opacity=".78"/>
+          <stop offset="100%" stop-color="#15101d" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="blur"><feGaussianBlur stdDeviation="22"/></filter>
+      </defs>
+      <rect width="640" height="480" fill="#15101d"/>
+      <rect width="640" height="480" fill="url(#a)" opacity=".78"/>
+      <circle cx="462" cy="340" r="190" fill="url(#b)" filter="url(#blur)"/>
+      <path d="M196 312C228 210 300 152 394 140C446 134 488 170 484 222C478 304 390 354 296 354C240 354 184 348 196 312Z" fill="#f6f0ff" opacity=".12"/>
+      <path d="M236 300C266 224 322 184 390 176C424 172 452 194 448 228C442 284 378 318 304 320C264 322 226 320 236 300Z" fill="#ffffff" opacity=".2"/>
+      <text x="40" y="424" fill="#f6f0ff" font-family="Arial, sans-serif" font-size="28" opacity=".84">${label}</text>
+    </svg>`;
+
+  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
 }
