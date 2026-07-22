@@ -35,32 +35,32 @@ const starterPrompt = "";
 
 const baseImagePresets = [
   {
-    id: "glass-object",
-    title: "Glass Object",
-    description: "Reflective product form with cool studio lighting.",
-    palette: ["#116dff", "#7f5bff", "#f6f0ff"],
-    image: buildSeedImage("Glass Object", "#116dff", "#7f5bff", "#f6f0ff")
+    id: "rose",
+    title: "Rose",
+    description: "Macro floral form with red petals, dew, and organic contrast.",
+    palette: ["#d9343f", "#0f3a24", "#f4c7a2"],
+    image: "/base-images/rose.webp"
   },
   {
-    id: "fabric-study",
-    title: "Fabric Study",
-    description: "Soft textile folds with warm highlight contrast.",
-    palette: ["#ff63e7", "#c874ff", "#f5d9ff"],
-    image: buildSeedImage("Fabric Study", "#ff63e7", "#8f5cff", "#f5d9ff")
+    id: "penguin",
+    title: "Penguin",
+    description: "Graphic black-and-white figure with icy blue environment.",
+    palette: ["#f4f7fb", "#1b2430", "#5c8eba"],
+    image: "/base-images/penguin.jpeg"
   },
   {
-    id: "industrial-shell",
-    title: "Industrial Shell",
-    description: "Machined surface, graphite shadow, precise rim light.",
-    palette: ["#3bd7ff", "#5367ff", "#d7e8ff"],
-    image: buildSeedImage("Industrial Shell", "#3bd7ff", "#5367ff", "#d7e8ff")
+    id: "dog",
+    title: "Dog",
+    description: "Warm outdoor motion cue with soft fur and playful posture.",
+    palette: ["#d8a35c", "#4c6b2f", "#f5dcae"],
+    image: "/base-images/dog.jpeg"
   },
   {
-    id: "organic-vessel",
-    title: "Organic Vessel",
-    description: "Sculptural shape with botanical, luminous material cues.",
-    palette: ["#51e6b5", "#4b9cf5", "#d8fff2"],
-    image: buildSeedImage("Organic Vessel", "#51e6b5", "#4b9cf5", "#d8fff2")
+    id: "cat",
+    title: "Cat",
+    description: "Textured portrait reference with tabby pattern and calm gaze.",
+    palette: ["#9b6b43", "#d9dce4", "#2b241d"],
+    image: "/base-images/cat.jpg"
   }
 ];
 
@@ -120,10 +120,17 @@ export function IdeationStudio() {
   const thumbnailSlots = Array.from({ length: THUMBNAILS_PER_PAGE }, (_, index) => galleryEntries[index]);
   const selectedSeed = baseImagePresets.find((seed) => seed.id === selectedSeedId);
 
-  function selectBaseImage(seed: (typeof baseImagePresets)[number]) {
-    setBaseImage(seed.image);
-    setSelectedSeedId(seed.id);
-    setIsPickerOpen(false);
+  async function selectBaseImage(seed: (typeof baseImagePresets)[number]) {
+    try {
+      const response = await fetch(seed.image);
+      const blob = await response.blob();
+      const imageDataUrl = await readBlobAsDataUrl(blob);
+      setBaseImage(imageDataUrl);
+      setSelectedSeedId(seed.id);
+      setIsPickerOpen(false);
+    } catch {
+      setError("The selected base image could not be loaded.");
+    }
   }
 
   async function generate() {
@@ -646,28 +653,12 @@ function formatDate(value: string) {
   }).format(new Date(value));
 }
 
-function buildSeedImage(label: string, colorA: string, colorB: string, colorC: string) {
-  const svg = `
-    <svg width="640" height="480" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <radialGradient id="a" cx="34%" cy="26%" r="74%">
-          <stop offset="0%" stop-color="${colorC}"/>
-          <stop offset="44%" stop-color="${colorA}"/>
-          <stop offset="100%" stop-color="#15101d"/>
-        </radialGradient>
-        <radialGradient id="b" cx="72%" cy="72%" r="62%">
-          <stop offset="0%" stop-color="${colorB}" stop-opacity=".78"/>
-          <stop offset="100%" stop-color="#15101d" stop-opacity="0"/>
-        </radialGradient>
-        <filter id="blur"><feGaussianBlur stdDeviation="22"/></filter>
-      </defs>
-      <rect width="640" height="480" fill="#15101d"/>
-      <rect width="640" height="480" fill="url(#a)" opacity=".78"/>
-      <circle cx="462" cy="340" r="190" fill="url(#b)" filter="url(#blur)"/>
-      <path d="M196 312C228 210 300 152 394 140C446 134 488 170 484 222C478 304 390 354 296 354C240 354 184 348 196 312Z" fill="#f6f0ff" opacity=".12"/>
-      <path d="M236 300C266 224 322 184 390 176C424 172 452 194 448 228C442 284 378 318 304 320C264 322 226 320 236 300Z" fill="#ffffff" opacity=".2"/>
-      <text x="40" y="424" fill="#f6f0ff" font-family="Arial, sans-serif" font-size="28" opacity=".84">${label}</text>
-    </svg>`;
+function readBlobAsDataUrl(blob: Blob) {
+  return new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
 
-  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+    reader.onload = () => resolve(String(reader.result));
+    reader.onerror = () => reject(reader.error);
+    reader.readAsDataURL(blob);
+  });
 }
