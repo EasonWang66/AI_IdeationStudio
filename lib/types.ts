@@ -10,6 +10,7 @@ export type GenerationResult = {
   references: ReferenceSuggestion[];
   rationale: string;
   revisedPrompt: string;
+  mode?: "openai" | "mock";
 };
 
 export type TimelineEntry = {
