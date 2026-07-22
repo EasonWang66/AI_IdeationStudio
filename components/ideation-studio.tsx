@@ -214,7 +214,9 @@ export function IdeationStudio() {
   function flipDemoPrompt() {
     if (!selectedSeed) return;
 
-    setDemoPromptIndex((index) => (index + 1) % selectedSeed.demoPrompts.length);
+    const nextIndex = (demoPromptIndex + 1) % selectedSeed.demoPrompts.length;
+    setDemoPromptIndex(nextIndex);
+    setPrompt(selectedSeed.demoPrompts[nextIndex]);
   }
 
   function beginPanelDrag(panel: PanelId, event: PointerEvent<HTMLElement>) {
@@ -372,13 +374,10 @@ export function IdeationStudio() {
                       className="studio-demo-prompt"
                       type="button"
                       aria-pressed={prompt === activeDemoPrompt}
-                      onClick={() => setPrompt(activeDemoPrompt)}
+                      aria-label="Switch demo prompt"
+                      onClick={flipDemoPrompt}
                     >
-                      <strong>Demo prompt {demoPromptIndex + 1}</strong>
                       <span>{activeDemoPrompt.replace(`Demo prompt ${demoPromptIndex + 1}: `, "")}</span>
-                    </button>
-                    <button className="studio-demo-flip" type="button" onClick={flipDemoPrompt}>
-                      Show prompt {demoPromptIndex === 0 ? "2" : "1"}
                     </button>
                   </div>
                 ) : (
