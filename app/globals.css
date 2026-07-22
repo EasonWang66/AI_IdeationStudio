@@ -697,7 +697,7 @@ textarea {
   opacity: 1;
 }
 
-.studio-demo-prompt-grid {
+.studio-demo-prompt-shell {
   display: grid;
   gap: 6px;
   margin: 6px 0 8px;
@@ -742,6 +742,29 @@ textarea {
 
 .studio-demo-prompt:hover,
 .studio-demo-prompt:focus-visible {
+  transform: translateY(-1px);
+}
+
+.studio-demo-flip {
+  justify-self: end;
+  border: 1px solid rgba(232, 215, 255, 0.18);
+  border-radius: 999px;
+  padding: 4px 10px;
+  color: var(--studio-muted);
+  background:
+    linear-gradient(145deg, rgba(255, 242, 255, 0.1), rgba(177, 132, 255, 0.03)),
+    rgba(72, 56, 92, 0.2);
+  cursor: pointer;
+  transition: color 160ms ease, border-color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+
+.studio-demo-flip:hover,
+.studio-demo-flip:focus-visible {
+  color: var(--studio-text);
+  border-color: rgba(245, 232, 255, 0.34);
+  background:
+    linear-gradient(145deg, rgba(255, 245, 255, 0.18), rgba(188, 143, 255, 0.06)),
+    rgba(85, 64, 112, 0.32);
   transform: translateY(-1px);
 }
 

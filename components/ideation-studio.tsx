@@ -84,6 +84,7 @@ export function IdeationStudio() {
   const [baseImage, setBaseImage] = useState<string>("");
   const [selectedSeedId, setSelectedSeedId] = useState("");
   const [isPickerOpen, setIsPickerOpen] = useState(false);
+  const [demoPromptIndex, setDemoPromptIndex] = useState(0);
   const [prompt, setPrompt] = useState(starterPrompt);
   const [timeline, setTimeline] = useState<TimelineEntry[]>([]);
   const [activeId, setActiveId] = useState<string>("");
@@ -128,6 +129,7 @@ export function IdeationStudio() {
   );
   const thumbnailSlots = Array.from({ length: THUMBNAILS_PER_PAGE }, (_, index) => galleryEntries[index]);
   const selectedSeed = baseImagePresets.find((seed) => seed.id === selectedSeedId);
+  const activeDemoPrompt = selectedSeed?.demoPrompts[demoPromptIndex] ?? "";
 
   async function selectBaseImage(seed: (typeof baseImagePresets)[number]) {
     try {
@@ -136,6 +138,7 @@ export function IdeationStudio() {
       const imageDataUrl = await readBlobAsDataUrl(blob);
       setBaseImage(imageDataUrl);
       setSelectedSeedId(seed.id);
+      setDemoPromptIndex(0);
       setIsPickerOpen(false);
     } catch {
       setError("The selected base image could not be loaded.");
@@ -185,6 +188,7 @@ export function IdeationStudio() {
     setBaseImage("");
     setSelectedSeedId("");
     setIsPickerOpen(false);
+    setDemoPromptIndex(0);
     setPrompt(starterPrompt);
     setTimeline([]);
     setActiveId("");
@@ -205,6 +209,12 @@ export function IdeationStudio() {
 
   function toggleNavSide() {
     setNavSide((side) => (side === "left" ? "right" : "left"));
+  }
+
+  function flipDemoPrompt() {
+    if (!selectedSeed) return;
+
+    setDemoPromptIndex((index) => (index + 1) % selectedSeed.demoPrompts.length);
   }
 
   function beginPanelDrag(panel: PanelId, event: PointerEvent<HTMLElement>) {
@@ -357,19 +367,19 @@ export function IdeationStudio() {
               <label>
                 <Text>Prompt</Text>
                 {selectedSeed ? (
-                  <div className="studio-demo-prompt-grid" aria-label={`${selectedSeed.title} demo prompts`}>
-                    {selectedSeed.demoPrompts.map((demoPrompt, index) => (
-                      <button
-                        className="studio-demo-prompt"
-                        type="button"
-                        aria-pressed={prompt === demoPrompt}
-                        key={demoPrompt}
-                        onClick={() => setPrompt(demoPrompt)}
-                      >
-                        <strong>Demo prompt {index + 1}</strong>
-                        <span>{demoPrompt.replace(`Demo prompt ${index + 1}: `, "")}</span>
-                      </button>
-                    ))}
+                  <div className="studio-demo-prompt-shell" aria-label={`${selectedSeed.title} demo prompts`}>
+                    <button
+                      className="studio-demo-prompt"
+                      type="button"
+                      aria-pressed={prompt === activeDemoPrompt}
+                      onClick={() => setPrompt(activeDemoPrompt)}
+                    >
+                      <strong>Demo prompt {demoPromptIndex + 1}</strong>
+                      <span>{activeDemoPrompt.replace(`Demo prompt ${demoPromptIndex + 1}: `, "")}</span>
+                    </button>
+                    <button className="studio-demo-flip" type="button" onClick={flipDemoPrompt}>
+                      Show prompt {demoPromptIndex === 0 ? "2" : "1"}
+                    </button>
                   </div>
                 ) : (
                   <p className="studio-prompt-hint">Select a base image to reveal two demo prompts.</p>
