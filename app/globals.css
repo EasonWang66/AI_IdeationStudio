@@ -874,6 +874,48 @@ textarea {
   margin-bottom: 4px;
 }
 
+.studio-reference-link {
+  position: relative;
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  outline: none;
+}
+
+.studio-reference-link::after {
+  content: attr(data-preview);
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 8px);
+  width: min(280px, 72vw);
+  border: 1px solid rgba(232, 215, 255, 0.2);
+  border-radius: var(--studio-radius);
+  padding: 8px 10px;
+  color: var(--studio-text);
+  background:
+    linear-gradient(145deg, rgba(255, 242, 255, 0.16), rgba(177, 132, 255, 0.055)),
+    rgba(26, 20, 35, 0.94);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.34);
+  font-size: 10px;
+  line-height: 1.35;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity 160ms ease, transform 160ms ease;
+  z-index: 8;
+}
+
+.studio-reference-link:hover::after,
+.studio-reference-link:focus-visible::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.studio-reference-link:focus-visible {
+  box-shadow: 0 0 0 2px rgba(75, 156, 245, 0.5);
+  border-radius: var(--studio-radius);
+}
+
 .studio-timeline-item {
   display: grid;
   gap: 4px;

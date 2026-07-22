@@ -34,9 +34,10 @@ const metadataSchema = {
         additionalProperties: false,
         properties: {
           name: { type: "string" },
-          reason: { type: "string" }
+          reason: { type: "string" },
+          url: { type: "string" }
         },
-        required: ["name", "reason"]
+        required: ["name", "reason", "url"]
       }
     },
     rationale: { type: "string" },
@@ -159,7 +160,7 @@ async function generateMetadata(client: OpenAI, prompt: string, generationPrompt
     {
       role: "system" as const,
       content:
-        "You are an art direction assistant. Return concise, useful visual metadata for a generated design reference. Favor genres, movements, materials, camera/lighting language, and research references. Avoid claiming the image is by a living artist."
+        "You are an art direction assistant. Return concise, useful visual metadata for a generated design reference. Favor genres, movements, materials, camera/lighting language, and research references. Include a relevant public Wikipedia URL for each reference when possible. Avoid claiming the image is by a living artist."
     },
     {
       role: "user" as const,
@@ -212,6 +213,12 @@ function buildMockResult(prompt: string, reason: string, baseImage?: string): Ge
 }
 
 function getMockVariant(prompt: string, baseImage?: string) {
+  const promptVariant = getPromptSpecificVariant(prompt);
+
+  if (promptVariant) {
+    return promptVariant;
+  }
+
   const seed = hashString(`${prompt}|${baseImage?.slice(0, 180) ?? "no-base"}`);
   const tagSets = [
     ["editorial product", "cinematic lighting", "glassmorphism", "premium tech"],
@@ -259,6 +266,222 @@ function getMockVariant(prompt: string, baseImage?: string) {
     palette: palettes[index],
     references: references[index]
   };
+}
+
+function getPromptSpecificVariant(prompt: string) {
+  const normalizedPrompt = prompt.toLowerCase();
+  const variants = [
+    {
+      match: ["mother's day card", "elegant red rose"],
+      index: 0,
+      colorA: "#d9343f",
+      colorB: "#f4c7a2",
+      colorC: "#0f3a24",
+      tags: ["floral greeting card", "macro romance", "warm editorial light", "botanical keepsake"],
+      palette: ["rose red", "leaf green", "dew highlight", "soft cream"],
+      references: [
+        {
+          name: "Mother's Day",
+          reason: "Sets the emotional context and occasion for the card concept.",
+          url: "https://en.wikipedia.org/wiki/Mother%27s_Day"
+        },
+        {
+          name: "Greeting card",
+          reason: "Useful reference for layout conventions, sentiment, and keepsake framing.",
+          url: "https://en.wikipedia.org/wiki/Greeting_card"
+        },
+        {
+          name: "Rose",
+          reason: "Grounds the floral symbolism and visual language of the base image.",
+          url: "https://en.wikipedia.org/wiki/Rose"
+        }
+      ]
+    },
+    {
+      match: ["luxury floral gift card", "velvet red petals"],
+      index: 1,
+      colorA: "#9d102a",
+      colorB: "#f5b46d",
+      colorC: "#331421",
+      tags: ["luxury floral", "velvet lighting", "gold accent", "premium celebration"],
+      palette: ["velvet crimson", "antique gold", "deep burgundy", "warm shadow"],
+      references: [
+        {
+          name: "Luxury goods",
+          reason: "Supports the premium visual tone and elevated material language.",
+          url: "https://en.wikipedia.org/wiki/Luxury_goods"
+        },
+        {
+          name: "Floral design",
+          reason: "Useful for arranging botanical form as a designed gift object.",
+          url: "https://en.wikipedia.org/wiki/Floral_design"
+        },
+        {
+          name: "Rose",
+          reason: "Keeps the concept tied to the source image's symbolic flower.",
+          url: "https://en.wikipedia.org/wiki/Rose"
+        }
+      ]
+    },
+    {
+      match: ["south pole", "penguin guide"],
+      index: 2,
+      colorA: "#5c8eba",
+      colorB: "#f4f7fb",
+      colorC: "#1b2430",
+      tags: ["polar travel poster", "expedition illustration", "icy texture", "playful guide"],
+      palette: ["ice blue", "snow white", "penguin black", "cold horizon"],
+      references: [
+        {
+          name: "South Pole",
+          reason: "Anchors the destination and environmental atmosphere.",
+          url: "https://en.wikipedia.org/wiki/South_Pole"
+        },
+        {
+          name: "Penguin",
+          reason: "Connects the character direction to the selected base image.",
+          url: "https://en.wikipedia.org/wiki/Penguin"
+        },
+        {
+          name: "Poster",
+          reason: "Useful for bold travel composition and simplified graphic hierarchy.",
+          url: "https://en.wikipedia.org/wiki/Poster"
+        }
+      ]
+    },
+    {
+      match: ["polar adventure mascot", "travel-journal"],
+      index: 3,
+      colorA: "#00a6d6",
+      colorB: "#fff4ca",
+      colorC: "#26394d",
+      tags: ["adventure mascot", "antarctic light", "glossy snow", "travel journal"],
+      palette: ["glacier cyan", "warm beak gold", "snow white", "polar navy"],
+      references: [
+        {
+          name: "Mascot",
+          reason: "Supports the penguin as a memorable travel character.",
+          url: "https://en.wikipedia.org/wiki/Mascot"
+        },
+        {
+          name: "Antarctica",
+          reason: "Provides visual cues for climate, terrain, and light.",
+          url: "https://en.wikipedia.org/wiki/Antarctica"
+        },
+        {
+          name: "Travel literature",
+          reason: "Frames the result as part of an expressive journey narrative.",
+          url: "https://en.wikipedia.org/wiki/Travel_literature"
+        }
+      ]
+    },
+    {
+      match: ["best buddy", "sunny portrait"],
+      index: 0,
+      colorA: "#d8a35c",
+      colorB: "#f5dcae",
+      colorC: "#4c6b2f",
+      tags: ["sunny pet portrait", "lifestyle photography", "golden fur", "friendly motion"],
+      palette: ["honey gold", "grass green", "sunlit cream", "soft shadow"],
+      references: [
+        {
+          name: "Pet photography",
+          reason: "Useful for approachable companion portrait framing.",
+          url: "https://en.wikipedia.org/wiki/Pet_photography"
+        },
+        {
+          name: "Dog",
+          reason: "Connects behavior, posture, and companion symbolism to the base image.",
+          url: "https://en.wikipedia.org/wiki/Dog"
+        },
+        {
+          name: "Portrait photography",
+          reason: "Supports direct subject focus and warm character emphasis.",
+          url: "https://en.wikipedia.org/wiki/Portrait_photography"
+        }
+      ]
+    },
+    {
+      match: ["heroic companion poster", "pet-brand"],
+      index: 1,
+      colorA: "#f0a64b",
+      colorB: "#4b9cf5",
+      colorC: "#2f241b",
+      tags: ["hero companion", "warm backlight", "premium pet brand", "cinematic loyalty"],
+      palette: ["golden fur", "sky blue", "deep umber", "sun flare"],
+      references: [
+        {
+          name: "Poster",
+          reason: "Useful for heroic scale, visual hierarchy, and campaign energy.",
+          url: "https://en.wikipedia.org/wiki/Poster"
+        },
+        {
+          name: "Brand",
+          reason: "Frames the result as polished pet-brand art direction.",
+          url: "https://en.wikipedia.org/wiki/Brand"
+        },
+        {
+          name: "Dog",
+          reason: "Keeps the concept centered on companion identity and loyalty.",
+          url: "https://en.wikipedia.org/wiki/Dog"
+        }
+      ]
+    },
+    {
+      match: ["tiny landlord", "royal portrait"],
+      index: 2,
+      colorA: "#9b6b43",
+      colorB: "#d9dce4",
+      colorC: "#2b241d",
+      tags: ["royal pet portrait", "tabby texture", "museum daylight", "quiet authority"],
+      palette: ["tabby brown", "pale sky", "stone cream", "soft charcoal"],
+      references: [
+        {
+          name: "Portrait painting",
+          reason: "Supports the dignified museum-style composition.",
+          url: "https://en.wikipedia.org/wiki/Portrait_painting"
+        },
+        {
+          name: "Tabby cat",
+          reason: "Grounds the fur pattern and subject identity.",
+          url: "https://en.wikipedia.org/wiki/Tabby_cat"
+        },
+        {
+          name: "Cat",
+          reason: "Keeps the concept tied to feline posture and domestic symbolism.",
+          url: "https://en.wikipedia.org/wiki/Cat"
+        }
+      ]
+    },
+    {
+      match: ["mysterious studio icon", "high-fashion editorial"],
+      index: 3,
+      colorA: "#6f513b",
+      colorB: "#b7c4d8",
+      colorC: "#141018",
+      tags: ["fashion editorial", "mysterious gaze", "studio icon", "neutral elegance"],
+      palette: ["smoked taupe", "icy gray", "tabby bronze", "near black"],
+      references: [
+        {
+          name: "Fashion photography",
+          reason: "Supports the high-fashion pose, lighting, and attitude.",
+          url: "https://en.wikipedia.org/wiki/Fashion_photography"
+        },
+        {
+          name: "Studio photography",
+          reason: "Useful for controlled light, background, and portrait polish.",
+          url: "https://en.wikipedia.org/wiki/Studio_photography"
+        },
+        {
+          name: "Cat",
+          reason: "Maintains the feline subject and calm visual tension.",
+          url: "https://en.wikipedia.org/wiki/Cat"
+        }
+      ]
+    }
+  ];
+
+  return variants.find((variant) => variant.match.every((term) => normalizedPrompt.includes(term)));
 }
 
 function buildMockImage(prompt: string, variant: ReturnType<typeof getMockVariant>) {

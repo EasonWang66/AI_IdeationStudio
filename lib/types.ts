@@ -1,6 +1,7 @@
 export type ReferenceSuggestion = {
   name: string;
   reason: string;
+  url?: string;
 };
 
 export type GenerationResult = {

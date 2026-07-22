@@ -458,10 +458,7 @@ export function IdeationStudio() {
                   <MetaBlock title="Recommended Artists / References">
                     <ul className="studio-reference-list">
                       {activeEntry.result.references.map((reference) => (
-                        <li key={reference.name}>
-                          <strong>{reference.name}</strong>
-                          <Text>{reference.reason}</Text>
-                        </li>
+                        <ReferenceLink reference={reference} key={reference.name} />
                       ))}
                     </ul>
                   </MetaBlock>
@@ -584,10 +581,7 @@ export function IdeationStudio() {
               {activeEntry ? (
                 <ul className="studio-reference-list studio-panel-scroll">
                   {activeEntry.result.references.map((reference) => (
-                    <li key={reference.name}>
-                      <strong>{reference.name}</strong>
-                      <Text>{reference.reason}</Text>
-                    </li>
+                    <ReferenceLink reference={reference} key={reference.name} />
                   ))}
                 </ul>
               ) : (
@@ -658,6 +652,25 @@ function MetaBlock({ title, children }: { title: string; children: React.ReactNo
       </div>
       {children}
     </section>
+  );
+}
+
+function ReferenceLink({ reference }: { reference: GenerationResult["references"][number] }) {
+  const href = reference.url ?? `https://en.wikipedia.org/wiki/${encodeURIComponent(reference.name.replaceAll(" ", "_"))}`;
+
+  return (
+    <li>
+      <a
+        className="studio-reference-link"
+        href={href}
+        target="_blank"
+        rel="noreferrer"
+        data-preview={`${reference.name} - ${href}`}
+      >
+        <strong>{reference.name}</strong>
+        <Text>{reference.reason}</Text>
+      </a>
+    </li>
   );
 }
 
