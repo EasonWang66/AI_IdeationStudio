@@ -36,29 +36,29 @@ const starterPrompt = "";
 const baseImagePresets = [
   {
     id: "rose",
-    title: "Rose",
-    description: "Macro floral form with red petals, dew, and organic contrast.",
+    title: "Gift Card",
+    description: "Create a Mother's Day card with the right amount of drama.",
     palette: ["#d9343f", "#0f3a24", "#f4c7a2"],
     image: "/base-images/rose.webp"
   },
   {
     id: "penguin",
-    title: "Penguin",
-    description: "Graphic black-and-white figure with icy blue environment.",
+    title: "South Pole",
+    description: "Create an illustration for your trip to the South Pole.",
     palette: ["#f4f7fb", "#1b2430", "#5c8eba"],
     image: "/base-images/penguin.jpeg"
   },
   {
     id: "dog",
-    title: "Dog",
-    description: "Warm outdoor motion cue with soft fur and playful posture.",
+    title: "Wooff Wooff",
+    description: "Create a portrait for the best buddy in the whole park.",
     palette: ["#d8a35c", "#4c6b2f", "#f5dcae"],
     image: "/base-images/dog.jpeg"
   },
   {
     id: "cat",
-    title: "Cat",
-    description: "Textured portrait reference with tabby pattern and calm gaze.",
+    title: "Tiny Landlord",
+    description: "Create a royal portrait for the roommate who owns the house.",
     palette: ["#9b6b43", "#d9dce4", "#2b241d"],
     image: "/base-images/cat.jpg"
   }
