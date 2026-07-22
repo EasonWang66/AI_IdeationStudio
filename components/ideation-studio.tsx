@@ -96,22 +96,8 @@ export function IdeationStudio() {
   const [panelSizes, setPanelSizes] = useState(PANEL_SIZES);
 
   useEffect(() => {
-    const stored = window.localStorage.getItem(STORAGE_KEY);
-
-    if (!stored) return;
-
-    try {
-      const entries = JSON.parse(stored) as TimelineEntry[];
-      setTimeline(entries);
-      setActiveId(entries[0]?.id ?? "");
-    } catch {
-      window.localStorage.removeItem(STORAGE_KEY);
-    }
+    window.localStorage.removeItem(STORAGE_KEY);
   }, []);
-
-  useEffect(() => {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(timeline));
-  }, [timeline]);
 
   useEffect(() => {
     const lastPage = Math.max(0, Math.ceil(timeline.length / THUMBNAILS_PER_PAGE) - 1);

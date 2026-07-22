@@ -693,10 +693,17 @@ textarea {
 }
 
 .studio-prompt-switch {
-  display: block;
+  display: -webkit-box;
+  min-height: 78px;
+  height: 78px;
+  max-height: 78px;
   cursor: pointer;
+  overflow: hidden;
   text-align: left;
-  line-height: 1.45;
+  font-size: 10px;
+  line-height: 1.35;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
 }
 
 .studio-prompt-switch:hover:not(:disabled),
