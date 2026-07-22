@@ -39,36 +39,45 @@ const baseImagePresets = [
     title: "Gift Card",
     description: "Create a Mother's Day card with the right amount of drama.",
     palette: ["#d9343f", "#0f3a24", "#f4c7a2"],
-    image: "/base-images/rose.webp"
+    image: "/base-images/rose.webp",
+    demoPrompts: [
+      "Demo prompt 1: Create a Mother's Day card with an elegant red rose, soft morning dew, warm handwritten-card emotion, and a polished editorial greeting-card composition.",
+      "Demo prompt 2: Turn the rose into a luxury floral gift card with dramatic cinematic lighting, velvet red petals, gold-accented atmosphere, and refined celebration styling."
+    ]
   },
   {
     id: "penguin",
     title: "South Pole",
     description: "Create an illustration for your trip to the South Pole.",
     palette: ["#f4f7fb", "#1b2430", "#5c8eba"],
-    image: "/base-images/penguin.jpeg"
+    image: "/base-images/penguin.jpeg",
+    demoPrompts: [
+      "Demo prompt 1: Create a playful travel illustration for a trip to the South Pole, featuring a confident penguin guide, icy blue textures, and crisp expedition-poster energy.",
+      "Demo prompt 2: Reimagine the penguin as a charming polar adventure mascot with glossy snow reflections, cinematic Antarctic light, and a premium travel-journal mood."
+    ]
   },
   {
     id: "dog",
     title: "Wooff Wooff",
     description: "Create a portrait for the best buddy in the whole park.",
     palette: ["#d8a35c", "#4c6b2f", "#f5dcae"],
-    image: "/base-images/dog.jpeg"
+    image: "/base-images/dog.jpeg",
+    demoPrompts: [
+      "Demo prompt 1: Create a sunny portrait for the best buddy in the park, with golden fur, joyful motion, soft grass texture, and a friendly lifestyle-photo finish.",
+      "Demo prompt 2: Transform the dog into a heroic companion poster with warm backlight, playful energy, cinematic depth, and premium pet-brand art direction."
+    ]
   },
   {
     id: "cat",
     title: "Tiny Landlord",
     description: "Create a royal portrait for the roommate who owns the house.",
     palette: ["#9b6b43", "#d9dce4", "#2b241d"],
-    image: "/base-images/cat.jpg"
+    image: "/base-images/cat.jpg",
+    demoPrompts: [
+      "Demo prompt 1: Create a royal portrait for the tiny landlord of the house, with dignified tabby texture, soft daylight, and museum-style portrait composition.",
+      "Demo prompt 2: Recast the cat as a mysterious studio icon with sharp gaze, elegant neutral palette, subtle branch silhouettes, and high-fashion editorial attitude."
+    ]
   }
-];
-
-const promptPresets = [
-  "Create an editorial product concept image with refined lighting, cinematic color contrast, and a polished art-direction moodboard quality.",
-  "Explore a cyberpunk visual direction with luminous material surfaces, atmospheric depth, and a premium design-fiction feeling.",
-  "Generate a soft impressionist reference with painterly light, gentle motion, muted color transitions, and tactile atmosphere.",
-  "Create a minimal luxury object study with dramatic negative space, glass-like reflections, and gallery-grade composition."
 ];
 
 export function IdeationStudio() {
@@ -347,19 +356,24 @@ export function IdeationStudio() {
 
               <label>
                 <Text>Prompt</Text>
-                <div className="studio-preset-grid" aria-label="Prompt presets">
-                  {promptPresets.map((preset, index) => (
-                    <button
-                      className="studio-preset-button"
-                      type="button"
-                      aria-pressed={prompt === preset}
-                      key={preset}
-                      onClick={() => setPrompt(preset)}
-                    >
-                      Prompt {index + 1}
-                    </button>
-                  ))}
-                </div>
+                {selectedSeed ? (
+                  <div className="studio-demo-prompt-grid" aria-label={`${selectedSeed.title} demo prompts`}>
+                    {selectedSeed.demoPrompts.map((demoPrompt, index) => (
+                      <button
+                        className="studio-demo-prompt"
+                        type="button"
+                        aria-pressed={prompt === demoPrompt}
+                        key={demoPrompt}
+                        onClick={() => setPrompt(demoPrompt)}
+                      >
+                        <strong>Demo prompt {index + 1}</strong>
+                        <span>{demoPrompt.replace(`Demo prompt ${index + 1}: `, "")}</span>
+                      </button>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="studio-prompt-hint">Select a base image to reveal two demo prompts.</p>
+                )}
                 <textarea
                   className="studio-textarea"
                   value={prompt}
