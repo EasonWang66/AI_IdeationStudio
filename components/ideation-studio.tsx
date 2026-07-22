@@ -444,9 +444,7 @@ export function IdeationStudio() {
                     <MetaBlock title="Visual Genres">
                       <div className="studio-tag-row">
                         {activeEntry.result.tags.map((tag) => (
-                          <span className="studio-tag" key={tag}>
-                            {tag}
-                          </span>
+                          <StyleTagLink tag={tag} key={tag} />
                         ))}
                       </div>
                     </MetaBlock>
@@ -545,9 +543,7 @@ export function IdeationStudio() {
               {activeEntry ? (
                 <div className="studio-chip-list">
                   {activeEntry.result.tags.map((tag) => (
-                    <span className="studio-tag" key={tag}>
-                      {tag}
-                    </span>
+                    <StyleTagLink tag={tag} key={tag} />
                   ))}
                 </div>
               ) : (
@@ -671,6 +667,16 @@ function ReferenceLink({ reference }: { reference: GenerationResult["references"
         <Text>{reference.reason}</Text>
       </a>
     </li>
+  );
+}
+
+function StyleTagLink({ tag }: { tag: string }) {
+  const href = `https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(tag)}`;
+
+  return (
+    <a className="studio-tag" href={href} target="_blank" rel="noreferrer" data-preview={`${tag} - Wikipedia search`}>
+      {tag}
+    </a>
   );
 }
 

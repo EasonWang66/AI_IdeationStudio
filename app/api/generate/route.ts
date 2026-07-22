@@ -281,19 +281,19 @@ function getPromptSpecificVariant(prompt: string) {
       palette: ["rose red", "leaf green", "dew highlight", "soft cream"],
       references: [
         {
-          name: "Mother's Day",
-          reason: "Sets the emotional context and occasion for the card concept.",
-          url: "https://en.wikipedia.org/wiki/Mother%27s_Day"
+          name: "Pierre-Joseph Redouté",
+          reason: "Botanical precision and delicate rose studies fit the floral card direction.",
+          url: "https://en.wikipedia.org/wiki/Pierre-Joseph_Redout%C3%A9"
         },
         {
-          name: "Greeting card",
-          reason: "Useful reference for layout conventions, sentiment, and keepsake framing.",
-          url: "https://en.wikipedia.org/wiki/Greeting_card"
+          name: "Georgia O'Keeffe",
+          reason: "Useful for turning a flower into an intimate, enlarged emotional subject.",
+          url: "https://en.wikipedia.org/wiki/Georgia_O%27Keeffe"
         },
         {
-          name: "Rose",
-          reason: "Grounds the floral symbolism and visual language of the base image.",
-          url: "https://en.wikipedia.org/wiki/Rose"
+          name: "Mary Cassatt",
+          reason: "A helpful reference for warm, familial tenderness without becoming sentimental.",
+          url: "https://en.wikipedia.org/wiki/Mary_Cassatt"
         }
       ]
     },
@@ -307,19 +307,19 @@ function getPromptSpecificVariant(prompt: string) {
       palette: ["velvet crimson", "antique gold", "deep burgundy", "warm shadow"],
       references: [
         {
-          name: "Luxury goods",
-          reason: "Supports the premium visual tone and elevated material language.",
-          url: "https://en.wikipedia.org/wiki/Luxury_goods"
+          name: "Rachel Ruysch",
+          reason: "Rich floral still-life drama supports a luxury gift-card composition.",
+          url: "https://en.wikipedia.org/wiki/Rachel_Ruysch"
         },
         {
-          name: "Floral design",
-          reason: "Useful for arranging botanical form as a designed gift object.",
-          url: "https://en.wikipedia.org/wiki/Floral_design"
+          name: "Jan Brueghel the Elder",
+          reason: "Useful for dense floral richness and jewel-like botanical arrangement.",
+          url: "https://en.wikipedia.org/wiki/Jan_Brueghel_the_Elder"
         },
         {
-          name: "Rose",
-          reason: "Keeps the concept tied to the source image's symbolic flower.",
-          url: "https://en.wikipedia.org/wiki/Rose"
+          name: "Pierre-Joseph Redouté",
+          reason: "Keeps the rose subject refined, elegant, and botanically legible.",
+          url: "https://en.wikipedia.org/wiki/Pierre-Joseph_Redout%C3%A9"
         }
       ]
     },
@@ -333,19 +333,19 @@ function getPromptSpecificVariant(prompt: string) {
       palette: ["ice blue", "snow white", "penguin black", "cold horizon"],
       references: [
         {
-          name: "South Pole",
-          reason: "Anchors the destination and environmental atmosphere.",
-          url: "https://en.wikipedia.org/wiki/South_Pole"
+          name: "Edward Adrian Wilson",
+          reason: "Antarctic expedition art gives the prompt an authentic polar sketchbook feel.",
+          url: "https://en.wikipedia.org/wiki/Edward_Adrian_Wilson"
         },
         {
-          name: "Penguin",
-          reason: "Connects the character direction to the selected base image.",
-          url: "https://en.wikipedia.org/wiki/Penguin"
+          name: "Frank Hurley",
+          reason: "Useful for dramatic polar atmosphere and expedition-era visual tension.",
+          url: "https://en.wikipedia.org/wiki/Frank_Hurley"
         },
         {
-          name: "Poster",
-          reason: "Useful for bold travel composition and simplified graphic hierarchy.",
-          url: "https://en.wikipedia.org/wiki/Poster"
+          name: "Rockwell Kent",
+          reason: "Bold graphic travel imagery supports the crisp expedition-poster energy.",
+          url: "https://en.wikipedia.org/wiki/Rockwell_Kent"
         }
       ]
     },
@@ -359,19 +359,19 @@ function getPromptSpecificVariant(prompt: string) {
       palette: ["glacier cyan", "warm beak gold", "snow white", "polar navy"],
       references: [
         {
-          name: "Mascot",
-          reason: "Supports the penguin as a memorable travel character.",
-          url: "https://en.wikipedia.org/wiki/Mascot"
+          name: "Charley Harper",
+          reason: "Simplified animal geometry helps the penguin become a memorable mascot.",
+          url: "https://en.wikipedia.org/wiki/Charley_Harper"
         },
         {
-          name: "Antarctica",
-          reason: "Provides visual cues for climate, terrain, and light.",
-          url: "https://en.wikipedia.org/wiki/Antarctica"
+          name: "Rockwell Kent",
+          reason: "Useful for icy adventure mood and high-contrast travel illustration.",
+          url: "https://en.wikipedia.org/wiki/Rockwell_Kent"
         },
         {
-          name: "Travel literature",
-          reason: "Frames the result as part of an expressive journey narrative.",
-          url: "https://en.wikipedia.org/wiki/Travel_literature"
+          name: "Edward Adrian Wilson",
+          reason: "Adds expedition sketchbook credibility to the travel-journal concept.",
+          url: "https://en.wikipedia.org/wiki/Edward_Adrian_Wilson"
         }
       ]
     },
@@ -385,19 +385,19 @@ function getPromptSpecificVariant(prompt: string) {
       palette: ["honey gold", "grass green", "sunlit cream", "soft shadow"],
       references: [
         {
-          name: "Pet photography",
-          reason: "Useful for approachable companion portrait framing.",
-          url: "https://en.wikipedia.org/wiki/Pet_photography"
+          name: "Maud Earl",
+          reason: "Classic dog portraiture supports a warm but composed companion image.",
+          url: "https://en.wikipedia.org/wiki/Maud_Earl"
         },
         {
-          name: "Dog",
-          reason: "Connects behavior, posture, and companion symbolism to the base image.",
-          url: "https://en.wikipedia.org/wiki/Dog"
+          name: "Edwin Landseer",
+          reason: "Useful for affectionate animal character and dignified pet presence.",
+          url: "https://en.wikipedia.org/wiki/Edwin_Landseer"
         },
         {
-          name: "Portrait photography",
-          reason: "Supports direct subject focus and warm character emphasis.",
-          url: "https://en.wikipedia.org/wiki/Portrait_photography"
+          name: "George Stubbs",
+          reason: "Strong reference for anatomy, posture, and polished animal portrait structure.",
+          url: "https://en.wikipedia.org/wiki/George_Stubbs"
         }
       ]
     },
@@ -411,19 +411,19 @@ function getPromptSpecificVariant(prompt: string) {
       palette: ["golden fur", "sky blue", "deep umber", "sun flare"],
       references: [
         {
-          name: "Poster",
-          reason: "Useful for heroic scale, visual hierarchy, and campaign energy.",
-          url: "https://en.wikipedia.org/wiki/Poster"
+          name: "N. C. Wyeth",
+          reason: "Heroic illustration scale supports the loyal companion poster tone.",
+          url: "https://en.wikipedia.org/wiki/N._C._Wyeth"
         },
         {
-          name: "Brand",
-          reason: "Frames the result as polished pet-brand art direction.",
-          url: "https://en.wikipedia.org/wiki/Brand"
+          name: "Norman Rockwell",
+          reason: "Warm narrative realism helps sell the friendly pet-brand emotion.",
+          url: "https://en.wikipedia.org/wiki/Norman_Rockwell"
         },
         {
-          name: "Dog",
-          reason: "Keeps the concept centered on companion identity and loyalty.",
-          url: "https://en.wikipedia.org/wiki/Dog"
+          name: "Edwin Landseer",
+          reason: "Keeps the dog reference noble, expressive, and companion-centered.",
+          url: "https://en.wikipedia.org/wiki/Edwin_Landseer"
         }
       ]
     },
@@ -437,19 +437,19 @@ function getPromptSpecificVariant(prompt: string) {
       palette: ["tabby brown", "pale sky", "stone cream", "soft charcoal"],
       references: [
         {
-          name: "Portrait painting",
-          reason: "Supports the dignified museum-style composition.",
-          url: "https://en.wikipedia.org/wiki/Portrait_painting"
+          name: "Louis Wain",
+          reason: "Cat portrait eccentricity makes the tiny-landlord idea feel charming.",
+          url: "https://en.wikipedia.org/wiki/Louis_Wain"
         },
         {
-          name: "Tabby cat",
-          reason: "Grounds the fur pattern and subject identity.",
-          url: "https://en.wikipedia.org/wiki/Tabby_cat"
+          name: "Théophile Steinlen",
+          reason: "Useful for feline attitude, silhouette, and poster-like presence.",
+          url: "https://en.wikipedia.org/wiki/Th%C3%A9ophile_Steinlen"
         },
         {
-          name: "Cat",
-          reason: "Keeps the concept tied to feline posture and domestic symbolism.",
-          url: "https://en.wikipedia.org/wiki/Cat"
+          name: "Édouard Manet",
+          reason: "Helps frame the cat with painterly dignity and composed portrait energy.",
+          url: "https://en.wikipedia.org/wiki/%C3%89douard_Manet"
         }
       ]
     },
@@ -463,19 +463,19 @@ function getPromptSpecificVariant(prompt: string) {
       palette: ["smoked taupe", "icy gray", "tabby bronze", "near black"],
       references: [
         {
-          name: "Fashion photography",
-          reason: "Supports the high-fashion pose, lighting, and attitude.",
-          url: "https://en.wikipedia.org/wiki/Fashion_photography"
+          name: "Horst P. Horst",
+          reason: "Elegant studio lighting supports the fashion-editorial cat direction.",
+          url: "https://en.wikipedia.org/wiki/Horst_P._Horst"
         },
         {
-          name: "Studio photography",
-          reason: "Useful for controlled light, background, and portrait polish.",
-          url: "https://en.wikipedia.org/wiki/Studio_photography"
+          name: "Erwin Blumenfeld",
+          reason: "Useful for experimental editorial polish and refined visual tension.",
+          url: "https://en.wikipedia.org/wiki/Erwin_Blumenfeld"
         },
         {
-          name: "Cat",
-          reason: "Maintains the feline subject and calm visual tension.",
-          url: "https://en.wikipedia.org/wiki/Cat"
+          name: "Guy Bourdin",
+          reason: "Adds sharp color, fashion attitude, and surreal editorial edge.",
+          url: "https://en.wikipedia.org/wiki/Guy_Bourdin"
         }
       ]
     }

@@ -825,16 +825,58 @@ textarea {
 }
 
 .studio-tag {
+  position: relative;
   border: 1px solid rgba(232, 215, 255, 0.18);
   border-radius: 999px;
   padding: 3px 9px;
   font-size: 12px;
   color: var(--studio-text);
+  text-decoration: none;
   background:
     linear-gradient(145deg, rgba(255, 242, 255, 0.1), rgba(177, 132, 255, 0.035)),
     rgba(72, 56, 92, 0.24);
   backdrop-filter: blur(12px) saturate(1.25);
   -webkit-backdrop-filter: blur(12px) saturate(1.25);
+  transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+
+.studio-tag::after {
+  content: attr(data-preview);
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 8px);
+  width: max-content;
+  max-width: 240px;
+  border: 1px solid rgba(232, 215, 255, 0.2);
+  border-radius: var(--studio-radius);
+  padding: 7px 9px;
+  color: var(--studio-text);
+  background:
+    linear-gradient(145deg, rgba(255, 242, 255, 0.16), rgba(177, 132, 255, 0.055)),
+    rgba(26, 20, 35, 0.94);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.32);
+  font-size: 10px;
+  line-height: 1.35;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity 160ms ease, transform 160ms ease;
+  z-index: 8;
+}
+
+.studio-tag:hover,
+.studio-tag:focus-visible {
+  border-color: rgba(245, 232, 255, 0.36);
+  background:
+    linear-gradient(145deg, rgba(255, 245, 255, 0.18), rgba(188, 143, 255, 0.065)),
+    rgba(85, 64, 112, 0.34);
+  transform: translateY(-1px);
+}
+
+.studio-tag:hover::after,
+.studio-tag:focus-visible::after {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .studio-reference-list,
